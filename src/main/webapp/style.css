@@ -1,0 +1,206 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding-top: 70px; /* Offset for fixed navbar */
+    height: 100vh;
+    background: linear-gradient(270deg, #fff6e5, #d9edff, #ffe0e0);
+    background-size: 300% 300%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+/* Keyframe Animation for Background Gradient */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 0% 100%; }
+    75% { background-position: 0% 50%; }
+    100% { background-position: 100% 0%; }
+}
+
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Center the navbar */
+    width: 60%; /* Reduced width */
+    display: flex;
+    justify-content: space-around; /* Space links evenly */
+    background: rgba(108, 91, 123, 0.9);
+    padding: 15px;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #355c7d;
+    color: #f2f2f2;
+}
+
+/* Header Styles */
+h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: #333333;
+}
+
+/* Form Container Styles */
+.form-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #faf3e0;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 0;
+    outline: 5px solid #e06c75;
+}
+
+.login-container,
+.empreg-container {
+    height: 360px;
+    padding: 30px;
+    outline: 5px solid #e06c75;
+}
+
+/* Double Border Effect */
+.login-container:before,
+.form-container:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 5px solid #355c7d;
+    border-radius: 20px;
+    z-index: -1;
+}
+
+/* Input Container */
+.input-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Input Field Styles */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f0e5d8;
+    color: #333333;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #6c5b7b;
+    outline: none;
+}
+
+/* Button Styles */
+.button-container {
+    text-align: center;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50; /* Green color */
+    color: #ffffff;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    transform: scale(1.05);
+}
+
+input[type="reset"] {
+    background-color: #f7b267;
+    color: #ffffff;
+}
+
+input[type="reset"]:hover {
+    background-color: #e59842;
+    transform: scale(1.05);
+}
+.admin-navbar {
+    background-color: rgba(108, 91, 123, 0.9); 
+}
+
+.admin-navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-navbar a:hover {
+    background-color: #355c7d; 
+    color: #f2f2f2 
+}
+
+
+.borrower-navbar {
+    background-color: rgba(108, 91, 123, 0.9); 
+}
+
+.borrower-navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.borrower-navbar a:hover {
+    background-color:#355c7d;
+    color: #f2f2f2;
+}
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
