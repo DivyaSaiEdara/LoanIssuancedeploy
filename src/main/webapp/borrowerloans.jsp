@@ -1,6 +1,7 @@
-<%@page import="com.klef.sdp.springboot.model.Loan" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="com.klef.sdp.springboot.model.Loans" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,7 @@
             <thead>
                 <tr>
                     <th>Loan ID</th>
+                    <th>Borrower ID</th>
                     <th>Loan Amount</th>
                     <th>Loan Purpose</th>
                     <th>Application Date</th>
@@ -24,6 +26,7 @@
                 <c:forEach var="loan" items="${loans}">
                     <tr>
                         <td>${loan.id}</td>
+                        <td>${loan.borrowerId}</td> <!-- Displaying Borrower ID -->
                         <td>${loan.loanAmount}</td>
                         <td>${loan.loanPurpose}</td>
                         <td>${loan.applicationDate}</td>

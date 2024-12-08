@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.klef.sdp.springboot.model.Borrower;
-import com.klef.sdp.springboot.model.Loan;
+import com.klef.sdp.springboot.model.Loans;
 import com.klef.sdp.springboot.service.BorrowerService;
 import com.klef.sdp.springboot.service.LoanService;
 
@@ -44,6 +44,14 @@ public class BorrowerController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("borrowerlogin");
 		return mv;
+	}
+	@GetMapping("borrowerlogout")
+	public String borrowerLogout(HttpServletRequest request) {
+	    HttpSession session = request.getSession(false); // Retrieve the session if it exists
+	    if (session != null) {
+	        session.invalidate(); // Invalidate the session to clear data
+	    }
+	    return "redirect:/borrowerlogin"; // Redirect to the borrower login page
 	}
 	
 	
@@ -101,12 +109,7 @@ public class BorrowerController {
 		return mv;
 	}
 	
-	@GetMapping("borrowerlogout")
-	public ModelAndView borrowerlogout() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("borrowerlogin");
-		return mv;
-	}
+	
 	
 	@PostMapping("insertborrower")
 	public ModelAndView insertborrower(HttpServletRequest request) {
@@ -152,6 +155,7 @@ public class BorrowerController {
         	  HttpSession session = request.getSession();
         	  
         	  session.setAttribute("borrower", borrower);
+        	  session.setMaxInactiveInterval(900);
         	  mv.setViewName("borrowerhome");
           }
           else 
@@ -173,38 +177,50 @@ public class BorrowerController {
 	    model.addAttribute("borrowerId", borrower.getId());
 	    return "applyloan";
 	}
-	@PostMapping("/applyloan")
+	@PostMapping("applyloan")
 	public String applyLoan(@RequestParam int borrowerId,
 	                        @RequestParam double loanAmount,
 	                        @RequestParam String loanPurpose,
 	                        @RequestParam String applicationDate,
 	                        HttpSession session,
 	                        Model model) {
-	    // Retrieve the borrower from the session
 	    Borrower borrower = (Borrower) session.getAttribute("borrower");
-	    
+	    System.out.println("Borrower: " + borrower);
 
-	    // Create a new loan object
-	    Loan loan = new Loan();
+	    Loans loan = new Loans();
 	    loan.setBorrowerId(borrowerId);
 	    loan.setLoanAmount(loanAmount);
 	    loan.setLoanPurpose(loanPurpose);
 	    loan.setApplicationDate(applicationDate);
+	    System.out.println("Loan: " + loan);
 
-	    // Save the loan application
 	    loanService.saveLoan(loan);
 
-	    // Fetch all loans for this borrower to display
-	    List<Loan> borrowerLoans = loanService.getLoansByBorrowerId(borrowerId);
+	    List<Loans> borrowerLoans = loanService.getLoansByBorrowerId(borrowerId);
+	    System.out.println("Retrieved Loans: " + borrowerLoans);
 	    model.addAttribute("loans", borrowerLoans);
 
-	    return "borrowerloans"; // JSP to display loans for the borrower
+	    return "borrowerloans";
 	}
-	
 
-
-    
-	
+	@GetMapping("borrowerloans")
+	public String viewLoans(Model model, HttpSession session) {
+	    Borrower borrower = (Borrower) session.getAttribute("borrower");
+	    
+	    if (borrower == null) {
+	        return "redirect:/borrowerlogin"; 
+	    }
+	    
+	    // Fetch loans for the logged-in borrower
+	    List<Loans> borrowerLoans = loanService.getLoansByBorrowerId(borrower.getId());
+	    model.addAttribute("loans", borrowerLoans);
+	    
+	    // Return loans page
+	    return "borrowerloans";
+	}
 
 
 }
+
+    
+

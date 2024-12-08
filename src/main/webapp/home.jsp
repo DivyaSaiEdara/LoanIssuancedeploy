@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,39 +6,65 @@
     <title>Home Page - FINSYNC</title>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
+        /* Fullscreen video background */
+        .background-video {
+            position: fixed; /* Fix the video to viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place it behind other content */
+            object-fit: cover; /* Maintain aspect ratio */
+        }
+
+        /* Content container with transparency */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Light opaque background */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+
         .card {
-            background-color: #ffffff; /* White background for better visibility */
-            border: 1px solid #ddd; /* Subtle border for definition */
-            border-radius: 10px; /* Rounded corners for a modern look */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            transition: transform 0.3s ease; /* Smooth scaling effect on hover */
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px); /* Slight lift effect on hover */
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
 
         .card-body h5 {
-            color: #333; /* Dark text for contrast */
-            font-weight: bold; /* Emphasize card title */
+            color: #333;
+            font-weight: bold;
         }
 
         .card-body p {
-            color: #555; /* Medium-dark text for readability */
+            color: #555;
         }
 
         .card-container {
-            margin-top: 50px; /* Move the cards further down */
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
+    <!-- Add Video Background -->
+    <video autoplay muted loop class="background-video">
+        <source src="${pageContext.request.contextPath}/bgvideo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
     <!-- Include Navbar -->
     <%@ include file="mainnavbar.jsp" %>
-    
+
+    <!-- Main Content -->
     <div class="container mt-5">
         <!-- Welcome Section -->
         <div class="row">

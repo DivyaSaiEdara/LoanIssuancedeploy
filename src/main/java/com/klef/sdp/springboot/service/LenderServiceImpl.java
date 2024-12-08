@@ -1,10 +1,14 @@
 package com.klef.sdp.springboot.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.klef.sdp.springboot.model.Lender;
+import com.klef.sdp.springboot.model.Loans;
 import com.klef.sdp.springboot.repository.LenderRepository;
+import com.klef.sdp.springboot.repository.LoanRepository;
 
 @Service
 public class LenderServiceImpl implements LenderService{
@@ -12,6 +16,8 @@ public class LenderServiceImpl implements LenderService{
 	
 	@Autowired
 	private LenderRepository lenderRepository;
+	@Autowired
+	private LoanRepository loanRepository;
 	@Override
 	public String lenderRegistration(Lender lender) {
 		lenderRepository.save(lender);
@@ -33,6 +39,15 @@ public class LenderServiceImpl implements LenderService{
 		 
 		 lenderRepository.save(l);
 		 return "Profile Updated Successfully";
+	}
+	@Override
+	public List<Loans> getAllLoanApplications() {
+		return loanRepository.findAll();
+	}
+	@Override
+	public void saveLender(Lender lender) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

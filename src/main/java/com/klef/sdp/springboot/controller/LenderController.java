@@ -1,13 +1,18 @@
 package com.klef.sdp.springboot.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.klef.sdp.springboot.model.Lender;
+import com.klef.sdp.springboot.model.Loans;
 import com.klef.sdp.springboot.service.LenderService;
+import com.klef.sdp.springboot.service.LoanService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +34,14 @@ public class LenderController {
 		mv.setViewName("lenderlogin");
 		return mv;
 	}
+	@GetMapping("/lenderlogout")
+	public String lenderLogout(HttpServletRequest request) {
+	    HttpSession session = request.getSession(false); // Get the session, if exists
+	    if (session != null) {
+	        session.invalidate(); // Invalidate session
+	    }
+	    return "redirect:/lenderlogin"; // Redirect to login page
+	}
 	@GetMapping("lenderreg")
 	public ModelAndView lenderreg() {
 		ModelAndView mv = new ModelAndView();
@@ -41,12 +54,7 @@ public class LenderController {
 		mv.setViewName("lenderprofile");
 		return mv;
 	}
-	@GetMapping("lenderlogout")
-	public ModelAndView lenderlogout() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("lenderlogin");
-		return mv;
-	}
+	
 	@PostMapping("insertlender")
 	public ModelAndView insertlender(HttpServletRequest request) {
 	    String name = request.getParameter("lname");
@@ -136,7 +144,7 @@ public class LenderController {
 	            // Store the lender in the session
 	            HttpSession session = request.getSession();
 	            session.setAttribute("lender", lender);
-	            // Redirect to the lender home page after successful login
+	            session.setMaxInactiveInterval(900);
 	            mv.setViewName("lenderhome");
 	        } else {
 	            // If login failed, return to the login page with a failure message
@@ -146,6 +154,20 @@ public class LenderController {
 
 	        return mv;
 	    }
-	
+	 @Autowired
+	    private LoanService loanService;
+
+	 @GetMapping("loanapplications")
+	 public String loanApplications(Model model) {
+	     // Fetch all loan applications from the database
+		 List<Loans> loanApplications = loanService.getAllLoanApplications();
+	     
+	     // Add the list to the model with the correct attribute name
+	     model.addAttribute("loans", loanApplications);  // Matching the attribute name in the JSP
+	     
+	     // Return the JSP page to display loan applications
+	     return "loanapplications";  // This is the JSP page to show loan applications
+	 }
+	 
 
 }

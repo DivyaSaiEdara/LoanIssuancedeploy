@@ -1,41 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="com.klef.sdp.springboot.model.Loans" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>All Loans</title>
 </head>
 <body>
-<h2>All Loan Applications</h2>
-<table border="1">
-    <tr>
-        <th>Loan ID</th>
-        <th>Borrower ID</th>
-        <th>Amount</th>
-        <th>Purpose</th>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    <c:forEach var="app" items="${applications}">
-        <tr>
-            <td>${app.loanId}</td>
-            <td>${app.borrowerId}</td>
-            <td>${app.loanAmount}</td>
-            <td>${app.loanPurpose}</td>
-            <td>${app.applicationDate}</td>
-            <td>${app.loanStatus}</td>
-            <td>
-                <form action="/lender/updatestatus" method="post">
-                    <input type="hidden" name="loanId" value="${app.loanId}" />
-                    <button type="submit" name="status" value="Approved">Approve</button>
-                    <button type="submit" name="status" value="Rejected">Reject</button>
-                </form>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
-
+    <%@include file="lendernavbar.jsp" %>
+    <h3 align="center">Loans</h3>
+    <div class="container">
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Borrower ID</th>
+                    <th>Loan Amount</th>
+                    <th>Loan Purpose</th>
+                    <th>Application Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="loan" items="${loans}">
+                    <tr>
+                        <td>${loan.id}</td>
+                        <td>${loan.borrowerId}</td>
+                        <td>${loan.loanAmount}</td>
+                        <td>${loan.loanPurpose}</td>
+                        <td>${loan.applicationDate}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
